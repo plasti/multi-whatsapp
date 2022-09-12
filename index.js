@@ -12,30 +12,35 @@ class WppBtn {
 		this.btn = document.createElement('a')
 		this.btn.classList.add('__WppBtn_fixed')
 
-		if("title" in this.options) {
+		if ("numbers" in this) {
+			console.warn("Wppbtn: el array se encuentra nombrado correctamente" );
+		}else{
+			console.error("La propiedad number no se encontro en los parametros de la función")
+		}
+		if ("title" in this.options) {
 			this.btn.setAttribute('title', this.options.title)
 		}
-		if("y" in this.options || "x" in this.options) {
-			let style = ("y" in this.options) ? ('bottom: '+this.options.y+'px;') : ''
-			style += ("x" in this.options) ? ('right: '+this.options.x+'px;') : '' 
+		if ("y" in this.options || "x" in this.options) {
+			let style = ("y" in this.options) ? ('bottom: ' + this.options.y + 'px;') : ''
+			style += ("x" in this.options) ? ('right: ' + this.options.x + 'px;') : ''
 			this.btn.setAttribute('style', style)
 		}
-		if(this.numbers.length > 1) {
+		if (this.numbers.length > 1) {
 			this.btn.setAttribute('href', '#')
 			const open = () => this.openDialog()
 			const close = () => this.closeDialog()
 			this.btn.addEventListener('click', function (e) {
 				e.preventDefault()
-				if(this.classList.contains('__active')) {
+				if (this.classList.contains('__active')) {
 					this.classList.remove('__active')
 					close()
-				}else {
+				} else {
 					this.classList.add('__active')
 					open()
 				}
 			})
-		}else {
-			let link = 'https://api.whatsapp.com/send?phone='+this.numbers[0].number+(("message" in this.numbers[0]) ? ('&text='+this.numbers[0].message) : '')
+		} else {
+			let link = 'https://api.whatsapp.com/send?phone=' + this.numbers[0].number + (("message" in this.numbers[0]) ? ('&text=' + this.numbers[0].message) : '')
 			this.btn.setAttribute('href', link)
 			this.btn.setAttribute('target', 'blank')
 		}
@@ -46,36 +51,36 @@ class WppBtn {
 		// container
 		this.container = document.createElement('div')
 		this.container.classList.add('__Box_BtnWpp_dialog')
-		if("y" in this.options || "x" in this.options) {
-			let style = ("y" in this.options) ? ('bottom: '+(this.options.y + 70)+'px;') : ''
-			style += ("x" in this.options) ? ('right: '+(this.options.x)+'px;') : '' 
+		if ("y" in this.options || "x" in this.options) {
+			let style = ("y" in this.options) ? ('bottom: ' + (this.options.y + 70) + 'px;') : ''
+			style += ("x" in this.options) ? ('right: ' + (this.options.x) + 'px;') : ''
 			style += 'display: none;'
 			this.container.setAttribute('style', style)
 		}
 		let html = ''
 		// header
 		html += '<div class="__header_BtnWpp_dialig">'
-				html += '<span>'+(("title" in this.options) ? this.options.title : 'Lineas de atención')+'</span>'
+		html += '<span>' + (("title" in this.options) ? this.options.title : 'Lineas de atención') + '</span>'
 		html += '</div>'
 		// body
 		html += '<div class="__body_BtnWpp_dialog">'
-		if("subtitle" in this.options) {
-			html += '<span class="__subtitle_">'+this.options.subtitle+'</span>'
+		if ("subtitle" in this.options) {
+			html += '<span class="__subtitle_">' + this.options.subtitle + '</span>'
 		}
-			// loop
-			for(let wpp of this.numbers) {
-				html += '<a target="blank" href="https://api.whatsapp.com/send?phone='+wpp.number+(("message" in wpp) ? ('&text='+wpp.message) : '')+'" class="__card_Btn_Wpp">'
-					html += this.icon()
-					html += '<span>'+wpp.title+'</span>'
-				html += '</a>'
-			}
+		// loop
+		for (let wpp of this.numbers) {
+			html += '<a target="blank" href="https://api.whatsapp.com/send?phone=' + wpp.number + (("message" in wpp) ? ('&text=' + wpp.message) : '') + '" class="__card_Btn_Wpp">'
+			html += this.icon()
+			html += '<span>' + wpp.title + '</span>'
+			html += '</a>'
+		}
 
 		html += '</div>'
 		this.container.innerHTML = html
 		document.body.appendChild(this.container)
 	}
 
-	closeDialog = () => this.container.classList.remove('__active') 
+	closeDialog = () => this.container.classList.remove('__active')
 	openDialog = () => this.container.classList.add('__active')
 
 	icon() {
@@ -90,11 +95,13 @@ class WppBtn {
 	}
 
 	init() {
-		if(this.numbers.length > 1) {
+		if (this.numbers.length > 1) {
 			this.createDialog()
 		}
 		this.css()
 		this.createBtn()
+		
 	}
+	
 }
 window.WppBtn = WppBtn

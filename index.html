@@ -6,7 +6,28 @@
 	<title>Widget CI Talsa</title>
 
 
-	<script src="https://plastibucket.s3.us-east-2.amazonaws.com/btn-wpp/btn-wpp.min.js"></script>
+	<script src="index.js"></script>
+
+	<script>
+		window.onload=()=> new WppBtn([
+		{
+			number: 573123423123,
+			title: 'Ventas',
+			message: 'Hola, quiero saber más'
+
+		},
+		{
+			number: 573412324312,
+			title: 'Hola'
+		}
+	], {
+		title: 'Comunicate con nosotros',
+		subtitle: 'Nuestros canales son',
+		x: 200,
+		y: 200
+	})
+	</script>
+	
 	
 
 
