@@ -1,2 +1,2 @@
-# multi-whatsapp
-Simple libreria que permite insertar un botón de whatsapp en el sitio web
+# Multi Whatsapp
+Simple libreria que permite insertar un botón de whatsapp en un sitio web
